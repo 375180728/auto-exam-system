@@ -1,5 +1,19 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <Content :style="{ padding: '0 16px 16px' }">
+    <HeadInfos/>
+    <Card>
+      <div style="height: 600px">Content</div>
+    </Card>
+  </Content>
 </template>
+
+<script>
+import HeadInfos from '@/components/HeadInfos'
+export default {
+	components: { HeadInfos },
+	data () {
+		return {
+		}
+	}	
+}
+</script>
