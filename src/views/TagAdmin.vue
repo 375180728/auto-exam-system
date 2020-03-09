@@ -2,7 +2,7 @@
   <Content :style="{ padding: '0 16px 16px' }">
     <HeadInfos/>
     <Card>
-      <div style="">
+      <div>
         <!-- <h4>标签</h4> -->
         <NewTags/>
       </div>

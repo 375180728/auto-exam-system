@@ -102,5 +102,19 @@ AuthSchema.static('access4Admin', async (ctx, next) => {
   await next()
 })
 
+AuthSchema.static('access4Teacher', async (ctx, next) => {
+  if(ctx.request.user.user_id.role != USER_ROLES.TEACHER){
+    throw new ERROR.NoAuthError();
+  }
+  await next()
+})
+
+AuthSchema.static('access4Student', async (ctx, next) => {
+  if(ctx.request.user.user_id.role != USER_ROLES.STUDENT){
+    throw new ERROR.NoAuthError();
+  }
+  await next()
+})
+
 const authModel = mongoose.model('Auth', AuthSchema)
 module.exports = authModel

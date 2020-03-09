@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   salt: {type: String, required: true},
-  role: { type: Number, required: true, default: USER_ROLES.VISITOR },
+  role: { type: Number, required: true, default: USER_ROLES.STUDENT },
   create_date: { type: Date, required: true },
   update_date: { type: Date },
   status: { type: Number, required: true, default: USER_STATUS.ACTIVATED },

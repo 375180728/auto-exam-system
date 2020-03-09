@@ -11,14 +11,24 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'about',
-    component: () => import('../views/About.vue')
+    path: '/my',
+    name: 'my',
+    component: () => import('../views/My.vue')
   },
   {
     path: '/articles',
     name: 'articles',
     component: () => import('../views/Articles.vue'),
+  },
+  {
+    path: '/teacherCourse',
+    name: 'teacherCourse',
+    component: () => import('../views/TeacherCourse.vue'),
+  },
+  {
+    path: '/studentCourse',
+    name: 'studentCourse',
+    component: () => import('../views/StudentCourse.vue'),
   },
   {
     path: '/articles/:id',

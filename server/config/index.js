@@ -9,8 +9,9 @@ module.exports.DATABASE = {
 
 module.exports.USER_ROLES = {
   ADMIN: 0,
-  VISITOR: 1,
-  ALL: [0, 1]
+  STUDENT: 1,
+  TEACHER: 2,
+  ALL: [0, 1, 2]
 }
 
 module.exports.USER_STATUS = {

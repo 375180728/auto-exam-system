@@ -9,7 +9,8 @@
       <Button type="primary" @click="this.logout" v-show="isLoged">登出</Button>
       <div class="welcome" v-if="isLoged">
         <span>你好！</span>
-        <span>{{ this.userInfo.username || null }}</span>
+        <span>{{ this.userInfo.username || null }} </span>
+        <span>{{ this.userInfo.role == 1 ? '同学' : '老师'}}</span>
       </div>
     </div>
   </div>

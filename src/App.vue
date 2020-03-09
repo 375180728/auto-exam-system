@@ -12,34 +12,42 @@
             <Icon type="ios-home"></Icon>
             <span>首页</span>
           </MenuItem>
-          <MenuItem name="1-2" to="/about">
-						<Icon type="ios-body"></Icon>
-            <span>关于我</span>
+          <MenuItem name="1-2" to="/Studentcourse" v-show="isStudent">
+						<Icon type="ios-bookmarks"/></Icon>
+            <span>我的课程</span>
           </MenuItem>
-          <MenuItem name="1-3" to="/articles">
+          <MenuItem name="1-3" to="/Teachercourse" v-show="isTeacher">
+						<Icon type="ios-bookmarks"/></Icon>
+            <span>我的课程</span>
+          </MenuItem>
+          <MenuItem name="1-4" to="/my" v-show="isStudent">
+						<Icon type="ios-body"></Icon>
+            <span>个人设置</span>
+          </MenuItem>
+          <MenuItem name="1-5" to="/articles" v-show="isAdmin">
 						<Icon type="ios-book"></Icon>
             <span>文章</span>
           </MenuItem>
-          <MenuItem name="1-4" to="/tags">
+          <MenuItem name="1-6" to="/tags" v-show="isAdmin">
 						<Icon type="ios-pricetag"></Icon>
             <span>标签</span>
           </MenuItem>
-          <MenuItem name="1-5" to="/new" v-show="isAdmin">
+          <MenuItem name="1-7" to="/new" v-show="isAdmin">
 						<Icon type="ios-create"></Icon>
             <span>写博客</span>
           </MenuItem>
-          <MenuItem name="1-6" to="/tagadmin" v-show="isAdmin">
+          <MenuItem name="1-8" to="/tagadmin" v-show="isAdmin">
 						<Icon type="ios-pricetags"></Icon>
             <span>标签管理</span>
           </MenuItem>
-          <Submenu name="2">
+          <!-- <Submenu name="2">
             <template slot="title">
               <Icon type="ios-keypad"></Icon>
               Item 2
             </template>
             <MenuItem name="2-1">Option 1</MenuItem>
             <MenuItem name="2-2">Option 2</MenuItem>
-          </Submenu>
+          </Submenu> -->
         </Menu>
       </Sider>
       <Layout>
@@ -48,6 +56,7 @@
       <LoginForm />
       <RegisterForm />
     </Layout>
+    
   </div>
 </template>
 <script>
@@ -64,6 +73,8 @@ export default {
     return {
       isCollapsed: false,
       isAdmin: false,
+      isStudent: false,
+      isTeacher: false,
       token: '',
     };
   },
@@ -85,12 +96,21 @@ export default {
       handler(val) {
         if(!val) {
           this.isAdmin = false
+          this.isStudent = false
+          this.isTeacher = false
           return
         }
         if(val.role == 0) {
           this.isAdmin = true
-        } else {
-          this.isAdmin = false
+          return
+        } 
+        if(val.role == 1) {
+          this.isStudent = true
+          return
+        }
+        if(val.role == 2) {
+          this.isTeacher = true
+          return
         }
       },
       deep: true
@@ -110,6 +130,9 @@ export default {
 };
 </script>
 <style scoped>
+/* .ivu-layout-sider {
+  width: 10vw !important;
+} */
 .layout-con {
   height: 100%;
   width: 100%;
