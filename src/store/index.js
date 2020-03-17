@@ -9,6 +9,7 @@ const state = {
   loginDrawerValue: false,
   regDrawerValue: false,
   userInfo: null,
+  // lessonId: '',
   articleInfo: {
     _id: '',
     content: '',
@@ -18,7 +19,6 @@ const state = {
     title: '',
     tags: [],
   },
-  token: '',
 }
 
 export default new Vuex.Store({

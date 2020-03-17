@@ -56,8 +56,10 @@ export default {
     },
     logout() {
       window.localStorage.removeItem('userInfo')
+      window.localStorage.removeItem('lessonId')
       this.handleUserInfo(null)
       this.$Message.success('登出成功')
+      this.$router.push('/')
     }
   },
   watch: {

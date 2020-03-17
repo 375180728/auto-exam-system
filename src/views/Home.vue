@@ -11,8 +11,9 @@
         <span>增强学生学习兴趣</span>
       </div>
 			<div class="come-in">
-				<!-- <Button class="come-in-button" @click="handleClick" type="primary" to="/Studentcourse">进入平台</Button> -->
-        <Button class="come-in-button" @click="handleClick" type="primary" to="/Teachercourse">进入平台</Button>
+				<Button class="come-in-button" type="primary" to="/student/course" v-if="this.userInfo && this.userInfo.role == 1">进入平台</Button>
+        <Button class="come-in-button" type="primary" to="/teacher/course" v-else-if="this.userInfo && this.userInfo.role == 2">进入平台</Button>
+        <Button class="come-in-button" @click="handleLoginDrawer(true)" type="primary" v-else>请先登录</Button>
 			</div>
     </div>
 		<vue-particles
@@ -39,16 +40,18 @@
 
 <script>
 import HeadInfos from '@/components/HeadInfos';
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   components: { HeadInfos },
   data() {
     return {};
-	},
+  },
+  computed: {
+    ...mapState(['userInfo'])
+  },
 	methods: {
-		handleClick() {
-			console.log(1)
-		}
+    ...mapMutations(['handleLoginDrawer']),
 	}
 };
 </script>

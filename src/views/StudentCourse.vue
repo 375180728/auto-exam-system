@@ -4,43 +4,30 @@
     <Card>
       <div style="height: 600px">
         <div>
-          <Button icon="md-add-circle" type="primary" @click="openAddTermDrawer"
-            >添加学期</Button
+          <Button icon="md-add-circle" type="primary" @click="openJoinClassDrawer"
+            >加入班级</Button
           >
         </div>
         <Divider />
         <Drawer
-          title="添加学期"
-          v-model="addTermDrawerValue"
+          title="加入班级"
+          v-model="joinClassDrawerValue"
           width="20"
           :closable="true"
           :mask-closable="false"
-          class="addTermDrawer"
+          class="join-class-drawer"
         >
-          <Form :model="addTermForm" :show-message="true">
-            <Row>
-              <Col>
-                <FormItem label="学期名称" prop="termName">
-                  <Input
-                    v-model="addTermForm.termName"
-                    placeholder="请输入学期名称"
-                  >
-                  </Input>
-                </FormItem>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <FormItem label="背景颜色选择器" prop="bgColor">
-                  <ColorPicker v-model="addTermForm.bgColor" />
-                </FormItem>
-              </Col>
-            </Row>
-          </Form>
+          <div>
+            <div>
+              班级码：
+            </div>
+            <Input>
+
+            </Input>
+          </div>
           <div class="demo-drawer-footer">
-            <Button class="actionButton" type="primary" @click="handleSubmit"
-              >保存</Button
-            >
+            <Button class="actionButton" type="primary">加入班级</Button>
+            <Button>取消</Button>
           </div>
         </Drawer>
         <div class="card-container">
@@ -59,7 +46,7 @@
       </div>
     </Card>
   </Content>
-</template>
+</template>2
 
 <script>
 import HeadInfos from '@/components/HeadInfos';
@@ -69,7 +56,7 @@ export default {
   components: { HeadInfos },
   data() {
     return {
-      addTermDrawerValue: false,
+      joinClassDrawerValue: false,
       addTermForm: {
         termName: '',
         bgColor: '#19be6b'
@@ -81,10 +68,12 @@ export default {
     ...mapState(['userInfo'])
   },
   methods: {
-    openAddTermDrawer() {
-      this.addTermDrawerValue = true;
+    openJoinClassDrawer() {
+      this.joinClassDrawerValue = true;
     },
-    handleSubmit() {}
+    handleSubmit() {
+
+    }
   },
   created() {
     if (!this.userInfo) {
@@ -97,21 +86,14 @@ export default {
       location.pathname = '/';
       return;
     }
-    // if (this.$route.params.id) {
-    //   this.update = true;
-    //   this.getArticle();
-    // }
-    // this.$api.tag.get_tags().then(res => {
-    //   this.tagsList = res.data;
-    // });
   }
 };
 </script>
 
 <style lang="less">
-.addTermDrawer {
+.join-class-drawer {
   .ivu-drawer-right {
-    height: 360px !important;
+    height: 200px !important;
     right: 40% !important;
     margin-top: 160px;
   }

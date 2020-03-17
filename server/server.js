@@ -35,6 +35,8 @@ routes.user(router);
 routes.auth(router);
 routes.tag(router);
 routes.article(router);
+routes.term(router);
+routes.lesson(router);
 //logger
 app.use(logger());
 

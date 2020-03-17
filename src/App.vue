@@ -12,11 +12,11 @@
             <Icon type="ios-home"></Icon>
             <span>首页</span>
           </MenuItem>
-          <MenuItem name="1-2" to="/Studentcourse" v-show="isStudent">
+          <MenuItem name="1-2" to="/student/course" v-show="isStudent">
 						<Icon type="ios-bookmarks"/></Icon>
             <span>我的课程</span>
           </MenuItem>
-          <MenuItem name="1-3" to="/Teachercourse" v-show="isTeacher">
+          <MenuItem name="1-3" to="/teacher/course" v-show="isTeacher">
 						<Icon type="ios-bookmarks"/></Icon>
             <span>我的课程</span>
           </MenuItem>

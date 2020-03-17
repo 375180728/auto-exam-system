@@ -14,10 +14,18 @@ import tag from '@/api/tag'
 //文章模块接口
 import article from '@/api/article'
 
+//学期模块接口
+import term from '@/api/term'
+
+//课程模块接口
+import lesson from '@/api/lesson'
+
 // 导出接口
 export default {    
     user,
     auth,
     tag,
-    article
+    article,
+    term,
+    lesson
 }

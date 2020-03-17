@@ -97,9 +97,10 @@ export default {
       this.closeRegDrawer();
       this.openLoginDrawer();
     },
+
     handleSubmit() {
-      this.$api.user
-      .register(this.formData)
+      this.formData.username = this.formData.username.trim()
+      this.$api.user.register(this.formData)
       .then(res => {
         if (res.status === 10000) {
           this.changeLoginReg();

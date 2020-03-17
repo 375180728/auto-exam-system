@@ -21,12 +21,22 @@ const routes = [
     component: () => import('../views/Articles.vue'),
   },
   {
-    path: '/teacherCourse',
+    path: '/teacher/course',
     name: 'teacherCourse',
     component: () => import('../views/TeacherCourse.vue'),
   },
   {
-    path: '/studentCourse',
+    path: '/teacher/studentList',
+    name: 'studentList',
+    component: () => import('../views/StudentList.vue'),
+  },
+  {
+    path: '/teacher/courseAdmin',
+    name: 'teacherCourseAdmin',
+    component: () => import('../views/TeacherCourseAdmin.vue'),
+  },
+  {
+    path: '/student/course',
     name: 'studentCourse',
     component: () => import('../views/StudentCourse.vue'),
   },

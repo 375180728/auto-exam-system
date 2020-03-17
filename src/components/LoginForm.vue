@@ -96,9 +96,9 @@ export default {
         this.formData.password,
         'pengshixia.dev'
       ).toString();
-      const username = this.formData.username;
-      this.$api.auth
-        .login({ username: username, password: password })
+      const username = this.formData.username.trim()
+      console.log(username)
+      this.$api.auth.login({ username: username, password: password })
         .then(res => {
           if (res.status == 10000) {
             this.closeLoginDrawer();
