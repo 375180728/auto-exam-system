@@ -23,22 +23,22 @@ const routes = [
   {
     path: '/teacher/course',
     name: 'teacherCourse',
-    component: () => import('../views/TeacherCourse.vue'),
+    component: () => import('../views/teacher/TeacherCourse.vue'),
   },
   {
     path: '/teacher/studentList',
     name: 'studentList',
-    component: () => import('../views/StudentList.vue'),
+    component: () => import('../views/student/StudentList.vue'),
   },
   {
     path: '/teacher/courseAdmin',
     name: 'teacherCourseAdmin',
-    component: () => import('../views/TeacherCourseAdmin.vue'),
+    component: () => import('../views/teacher/TeacherCourseAdmin.vue'),
   },
   {
     path: '/student/course',
     name: 'studentCourse',
-    component: () => import('../views/StudentCourse.vue'),
+    component: () => import('../views/student/StudentCourse.vue'),
   },
   {
     path: '/articles/:id',

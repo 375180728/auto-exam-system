@@ -95,8 +95,6 @@
           title="添加课程"
           v-model="addLessonDrawerValue"
           width="20"
-          :closable="true"
-          :mask-closable="false"
           class="add-term-drawer"
           @on-close="closeAddLessonDrawer"
           >

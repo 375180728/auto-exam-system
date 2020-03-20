@@ -21,12 +21,12 @@
             <div>
               班级码：
             </div>
-            <Input>
+            <Input v-model="code">
 
             </Input>
           </div>
           <div class="demo-drawer-footer">
-            <Button class="actionButton" type="primary">加入班级</Button>
+            <Button class="actionButton" @click="joinClass" type="primary">加入</Button>
             <Button>取消</Button>
           </div>
         </Drawer>
@@ -57,11 +57,7 @@ export default {
   data() {
     return {
       joinClassDrawerValue: false,
-      addTermForm: {
-        termName: '',
-        bgColor: '#19be6b'
-      },
-      
+      code: ''
     };
   },
   computed: {
@@ -71,8 +67,18 @@ export default {
     openJoinClassDrawer() {
       this.joinClassDrawerValue = true;
     },
-    handleSubmit() {
-
+    joinClass() {
+      let params = {
+        code: this.code
+      }
+      this.$api.lesson.join_class(params)
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      console.log(this.code)
     }
   },
   created() {

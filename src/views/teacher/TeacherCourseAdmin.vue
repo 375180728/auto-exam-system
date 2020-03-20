@@ -17,6 +17,9 @@
           </div>
           <div class="form-group">
             <span>班级：</span>
+            <Card v-for="cclass in this.lessonInfo.class" :key="cclass._id">{{
+              cclass.name
+            }}</Card>
             <Button
               icon="md-add-circle"
               type="success"
@@ -59,15 +62,14 @@
           title="课程设置"
           v-model="lessonSettingDrawerValue"
           class="lesson-setting-drawer"
-          width="20">
-          <Form :model="lessonSettingForm" :show-message="true">
+          width="20"
+          @on-close="closeLessonSettingDrawer"
+        >
+          <Form :model="lessonInfo" :show-message="true">
             <Row>
               <Col>
                 <FormItem label="课程名称" prop="name">
-                  <Input
-                    v-model="lessonSettingForm.name"
-                    placeholder="请输入课程名称"
-                  >
+                  <Input v-model="lessonInfo.name" placeholder="请输入课程名称">
                   </Input>
                 </FormItem>
               </Col>
@@ -78,7 +80,7 @@
                   <Input
                     type="textarea"
                     :rows="4"
-                    v-model="lessonSettingForm.description"
+                    v-model="lessonInfo.description"
                     placeholder="请输入课程简介"
                   >
                   </Input>
@@ -117,15 +119,10 @@
             <div class="add-form-title">
               班级名称：
             </div>
-            <Input v-model="className">
-
-            </Input>
+            <Input v-model="className"> </Input>
           </div>
           <div class="demo-drawer-footer">
-            <Button
-              class="actionButton"
-              type="primary"
-              @click="handleAddClass"
+            <Button class="actionButton" type="primary" @click="handleAddClass"
               >保存</Button
             >
             <Button
@@ -152,12 +149,9 @@ export default {
       lessonSettingDrawerValue: false,
       addClassDrawerValue: false,
       addAssistDrawervalue: false,
-      lessonSettingForm: {
-        name: '',
-        description: ''
-      },
       className: '',
-      lessonInfo: {}
+      lessonInfo: {},
+      lessonId: ''
     };
   },
   computed: {
@@ -169,9 +163,26 @@ export default {
     },
     closeLessonSettingDrawer() {
       this.lessonSettingDrawerValue = false;
+      this.lessonInfo = {};
+      this.getLessonInfo(this.lessonId);
     },
     handleUpdateLesson(deleted) {
-      this.lessonSettingForm.deleted = deleted;
+      this.lessonInfo.deleted = deleted;
+      this.$api.lesson
+        .update_lesson_setting(this.lessonInfo)
+        .then(res => {
+          if (res.messages[0] == '删除成功') {
+            this.$Message.success(res.messages[0]);
+            this.$router.push('/teacher/course');
+            return;
+          }
+          this.$Message.success(res.messages[0]);
+          this.closeLessonSettingDrawer();
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     getLessonInfo(lessonId) {
       this.$api.lesson
@@ -190,7 +201,19 @@ export default {
       this.addClassDrawerValue = false;
     },
     handleAddClass() {
-      
+      let params = {
+        name: this.className,
+        id: this.lessonId
+      };
+      this.$api.lesson
+        .add_class(params)
+        .then(res => {
+          this.closeAddClassDrawer();
+          this.getLessonInfo(this.lessonId);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   created() {
@@ -204,18 +227,30 @@ export default {
       this.$Message.error('您的权限不符合');
       return;
     }
-    let lessonId = window.localStorage.getItem('lessonId');
-    this.getLessonInfo(lessonId);
+    this.lessonId = window.localStorage.getItem('lessonId');
+    this.getLessonInfo(this.lessonId);
   }
 };
 </script>
 
 <style lang="less">
 .form-group {
+  display: flex;
   margin-left: 20px;
   margin-bottom: 25px;
   font-size: 17px;
   font-weight: 700;
+  span {
+    line-height: 32px;
+  }
+  .ivu-card {
+    margin-right: 10px;
+    .ivu-card-body {
+      padding: 0 10px;
+      text-align: center;
+      line-height: 32px;
+    }
+  }
   button {
     margin-left: 30px;
   }
