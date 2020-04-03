@@ -37,6 +37,7 @@ routes.tag(router);
 routes.article(router);
 routes.term(router);
 routes.lesson(router);
+routes.exam(router);
 //logger
 app.use(logger());
 

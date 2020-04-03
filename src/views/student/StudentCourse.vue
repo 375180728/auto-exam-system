@@ -27,7 +27,7 @@
           </div>
           <div class="demo-drawer-footer">
             <Button class="actionButton" @click="joinClass" type="primary">加入</Button>
-            <Button>取消</Button>
+            <Button @click="closeJoinClassDrawer">取消</Button>
           </div>
         </Drawer>
         <div class="card-container">
@@ -67,12 +67,21 @@ export default {
     openJoinClassDrawer() {
       this.joinClassDrawerValue = true;
     },
+    closeJoinClassDrawer() {
+      this.joinClassDrawerValue = false;
+    },
     joinClass() {
       let params = {
         code: this.code
       }
       this.$api.lesson.join_class(params)
       .then((res) => {
+        this.closeJoinClassDrawer()
+        if(res.status === 10000) {
+          this.$Message.success(res.messages[0])
+        } else {
+          this.$Message.error(res.messages[0])
+        }
         console.log(res)
       })
       .catch((err) => {

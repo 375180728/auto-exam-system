@@ -20,6 +20,9 @@ import term from '@/api/term'
 //课程模块接口
 import lesson from '@/api/lesson'
 
+//考试模块接口
+import exam from '@/api/exam'
+
 // 导出接口
 export default {    
     user,
@@ -27,5 +30,6 @@ export default {
     tag,
     article,
     term,
-    lesson
+    lesson,
+    exam
 }

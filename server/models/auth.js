@@ -84,26 +84,6 @@ AuthSchema.static('login', async ctx => {
   });
 });
 
-//获取用户信息
-AuthSchema.static('search', async ctx => {
-  const token = ctx.query.token;
-  if (!token) {
-    throw new ERROR.BusinessError(['未登录']);
-  }
-  let dbAuth = await wrapExec(ctx.response)(() =>
-    authModel.findOne({ token: token }).exec()
-  );
-  const _id = dbAuth.user_id;
-  let dbUser = await wrapExec(ctx.response)(() =>
-    userModel.findOne({ _id: _id }).exec()
-  );
-  ctx.response.body = RES.SUCCESS({
-    user_id: dbUser._id,
-    username: dbUser.username,
-    token: token,
-    role: dbUser.role
-  });
-});
 
 //鉴权
 AuthSchema.static('accessAuth', async (ctx, next) => {

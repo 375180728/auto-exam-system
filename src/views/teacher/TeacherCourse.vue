@@ -24,6 +24,7 @@
                   <Input
                     v-model="addTermForm.name"
                     placeholder="请输入学期名称"
+                    :clearable=true
                   >
                   </Input>
                 </FormItem>
@@ -105,6 +106,7 @@
                   <Input
                     v-model="addLessonForm.name"
                     placeholder="请输入课程名称"
+                    :clearable=true
                   >
                   </Input>
                 </FormItem>

@@ -14,4 +14,7 @@ export default{
   // handleLessonId(state, value) {
   //   state.lessonId = value
   // }
+  handlePaperId(state, value) {
+    state.paperId = value
+  }
 }

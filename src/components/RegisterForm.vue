@@ -12,10 +12,11 @@
       <Form :model="formData" :show-message="true">
         <Row>
           <Col>
-            <FormItem label="Username" prop="username">
+            <FormItem label="用户名" prop="username">
               <Input
                 v-model="formData.username"
-                placeholder="please enter username"
+                placeholder="请输入用户名"
+                :clearable=true
               >
                 <Icon type="ios-person-outline" slot="prepend"></Icon>
               </Input>
@@ -24,12 +25,25 @@
         </Row>
         <Row>
           <Col>
-            <FormItem label="Password" prop="password">
+            <FormItem label="密码" prop="password">
               <Input
                 v-model="formData.password"
-                placeholder="please enter password"
+                placeholder="请输入密码"
+                :clearable=true
+                type="password"
               >
                 <Icon type="ios-lock-outline" slot="prepend"></Icon>
+              </Input>
+            </FormItem>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <FormItem label="姓名" prop="name">
+              <Input
+                v-model="formData.name"
+                placeholder="请输入姓名"
+              >
               </Input>
             </FormItem>
           </Col>
@@ -71,6 +85,7 @@ export default {
       formData: {
         username: '',
         password: '',
+        name: '',
         role: 0,
       }
     };
@@ -81,6 +96,7 @@ export default {
       this.formData = {
         username: '',
         password: '',
+        name: '',
         role: 0
       };
     },
@@ -125,9 +141,9 @@ export default {
 <style lang="less">
 .regDrawer {
   .ivu-drawer-right {
-    height: 400px !important;
+    height: 490px !important;
     right: 40% !important;
-    margin-top: 160px;
+    margin-top: 100px;
   }
   .ivu-drawer-mask,
   .ivu-drawer-wrap {

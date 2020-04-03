@@ -20,7 +20,7 @@
 						<Icon type="ios-bookmarks"/></Icon>
             <span>我的课程</span>
           </MenuItem>
-          <MenuItem name="1-4" to="/my" v-show="isStudent">
+          <MenuItem name="1-4" to="/my" v-show="isStudent || isTeacher">
 						<Icon type="ios-body"></Icon>
             <span>个人设置</span>
           </MenuItem>
@@ -40,14 +40,14 @@
 						<Icon type="ios-pricetags"></Icon>
             <span>标签管理</span>
           </MenuItem>
-          <!-- <Submenu name="2">
+          <Submenu name="2" v-show="isTeacher">
             <template slot="title">
-              <Icon type="ios-keypad"></Icon>
-              Item 2
+              <Icon type="ios-folder"/>
+              备课区
             </template>
-            <MenuItem name="2-1">Option 1</MenuItem>
-            <MenuItem name="2-2">Option 2</MenuItem>
-          </Submenu> -->
+            <MenuItem name="2-1" to="/teacher/testPaper">练习卷模板</MenuItem>
+            <MenuItem name="2-2">教案</MenuItem>
+          </Submenu>
         </Menu>
       </Sider>
       <Layout>
@@ -56,7 +56,6 @@
       <LoginForm />
       <RegisterForm />
     </Layout>
-    
   </div>
 </template>
 <script>
@@ -121,7 +120,7 @@ export default {
       return
     }
     this.token = JSON.parse(window.localStorage.getItem('userInfo')).token
-    this.$api.auth.get_user_info({token: this.token})
+    this.$api.user.get_user_info()
     .then((res) => {
       let userInfo = res.data
       this.handleUserInfo(userInfo)

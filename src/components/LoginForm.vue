@@ -12,10 +12,11 @@
       <Form :model="formData" :show-message="true">
         <Row>
           <Col>
-            <FormItem label="Username" prop="username">
+            <FormItem label="用户名" prop="username">
               <Input
                 v-model="formData.username"
-                placeholder="please enter username"
+                placeholder="请输入用户名"
+                :clearable=true
               >
                 <Icon type="ios-person-outline" slot="prepend"></Icon>
               </Input>
@@ -24,16 +25,19 @@
         </Row>
         <Row>
           <Col>
-            <FormItem label="Password" prop="password">
+            <FormItem label="密码" prop="password">
               <Input
                 v-model="formData.password"
-                placeholder="please enter password"
+                placeholder="请输入密码"
+                type="password"
+                :clearable=true
               >
                 <Icon type="ios-lock-outline" slot="prepend"></Icon>
               </Input>
             </FormItem>
           </Col>
         </Row>
+        
       </Form>
       <div>
         <span>没有账号？</span>

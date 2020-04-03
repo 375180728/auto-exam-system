@@ -11,7 +11,6 @@ import store from '@/store/index'
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 function checkStatus(response) {
-  console.log(response)
   if(response.status === 200) {
     return response
   } else if(response.status === 401) {

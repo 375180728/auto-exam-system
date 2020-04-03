@@ -20,7 +20,12 @@ module.exports.USER_STATUS = {
   DISABLE: 2
 }
 
-module.exports.TOKEN_EXPIRED_TIME = 3600 * 12;
+module.exports.EXAM_STATUS = {
+  UNPUBLISH: 0,
+  PUBLISH: 1
+}
+
+module.exports.TOKEN_EXPIRED_TIME = 3600 * 72;
 
 // 服务器响应值
 module.exports.RES = require('./response');

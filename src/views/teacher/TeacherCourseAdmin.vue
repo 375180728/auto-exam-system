@@ -69,7 +69,7 @@
             <Row>
               <Col>
                 <FormItem label="课程名称" prop="name">
-                  <Input v-model="lessonInfo.name" placeholder="请输入课程名称">
+                  <Input v-model="lessonInfo.name" placeholder="请输入课程名称" :clearable=true>
                   </Input>
                 </FormItem>
               </Col>
@@ -82,6 +82,7 @@
                     :rows="4"
                     v-model="lessonInfo.description"
                     placeholder="请输入课程简介"
+                    :clearable=true
                   >
                   </Input>
                 </FormItem>
@@ -119,7 +120,7 @@
             <div class="add-form-title">
               班级名称：
             </div>
-            <Input v-model="className"> </Input>
+            <Input v-model="className" :clearable=true></Input>
           </div>
           <div class="demo-drawer-footer">
             <Button class="actionButton" type="primary" @click="handleAddClass"

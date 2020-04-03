@@ -28,12 +28,22 @@ const routes = [
   {
     path: '/teacher/studentList',
     name: 'studentList',
-    component: () => import('../views/student/StudentList.vue'),
+    component: () => import('../views/teacher/StudentList.vue'),
   },
   {
     path: '/teacher/courseAdmin',
     name: 'teacherCourseAdmin',
     component: () => import('../views/teacher/TeacherCourseAdmin.vue'),
+  },
+  {
+    path: '/teacher/testPaper',
+    name: 'testPaper',
+    component: () => import('../views/teacher/TestPaper.vue'),
+  },
+  {
+    path: '/teacher/testEditor',
+    name: 'testEditor',
+    component: () => import('../views/teacher/TestEditor.vue'),
   },
   {
     path: '/student/course',

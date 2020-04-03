@@ -7,7 +7,7 @@ const termModel = require('./term');
 
 const ClassSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  student: { type: Array, default: [], required: true },
+  student: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   code: { type: String, required: true }
 });
 
@@ -18,6 +18,7 @@ const LessonSchema = new mongoose.Schema(
     create_date: { type: Date, required: true },
     teacher: { type: String, required: true },
     term_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Term' },
+    exam: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Exam' }],
     class: [ClassSchema],
     assist_teacher: { type: Array, default: [], required: false }
   },
@@ -68,7 +69,6 @@ LessonSchema.static('searchById', async (ctx, next) => {
   const result = await wrapExec(ctx.response)(() =>
     lessonModel.findOne({ _id: _id }).exec()
   );
-  console.log(result);
   ctx.response.body = RES.SUCCESS(result, ['success']);
   await next();
 });
@@ -88,7 +88,6 @@ LessonSchema.static('createClass', async (ctx, next) => {
       .findOne({ _id: _id }, { class: { $elemMatch: { name: name } } })
       .exec()
   );
-  console.log(result);
   if (result.class.length !== 0) {
     throw new ERROR.BusinessError(['班级已存在']);
   }
@@ -107,9 +106,11 @@ LessonSchema.static('createClass', async (ctx, next) => {
 //获取班级
 LessonSchema.static('searchClass', async (ctx, next) => {
   const _id = ctx.query.id;
-  console.log(_id);
   let result = await wrapExec(ctx.response)(() =>
-    lessonModel.findOne({ _id: _id }, { class: 1 }).exec()
+    lessonModel
+      .findOne({ _id: _id }, { class: 1 })
+      .populate('class.student', { password: 0, salt: 0, create_date: 0, role: 0, status: 0})
+      .exec()
   );
   ctx.response.body = RES.SUCCESS(result, ['success']);
 });
@@ -117,29 +118,22 @@ LessonSchema.static('searchClass', async (ctx, next) => {
 //加入班级
 LessonSchema.static('joinClass', async (ctx, next) => {
   const code = ctx.request.body.code;
-  console.log(ctx.request.user);
   let user = {
-    username: ctx.request.user.user_id.username,
     _id: ctx.request.user.user_id._id
   };
-  console.log(user);
+
   let result = await wrapExec(ctx.response)(() =>
-    lessonModel
-      .findOne(
-        { 'class.code': code },
-        { class: { $elemMatch: { code: code } } }
-      )
-      .update( { $push: { 'class[0].student': user } })
-      .exec()
+    lessonModel.findOne(
+      { 'class.code': code },
+      { class: { $elemMatch: { code: code } } }
+    )
   );
-  console.log(result);
-  let _id = result._id;
-  // await wrapExec(ctx.response)(() =>
-  //   lessonModel
-  //     .findOneAndUpdate({ 'class.code': code }, { $push: { 'class.student': user }})
-  //     .exec()
-  // );
-  ctx.response.body = RES.SUCCESS(result, ['success']);
+  if(result.class[0].student.indexOf(user._id) !== -1) {
+    throw new ERROR.BusinessError(['已加入该班级']);
+  }
+  result.class[0].student.push(user);
+  await wrapExec(ctx.response)(() => result.save());
+  ctx.response.body = RES.SUCCESS(null, ['加入班级成功']);
 });
 
 const lessonModel = mongoose.model('Lesson', LessonSchema);

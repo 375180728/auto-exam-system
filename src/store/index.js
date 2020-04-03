@@ -19,6 +19,7 @@ const state = {
     title: '',
     tags: [],
   },
+  paperId: '',
 }
 
 export default new Vuex.Store({
